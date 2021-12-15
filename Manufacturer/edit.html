@@ -22,7 +22,7 @@
                         <input type="text" name="manufacturerName" required lay-verify="required" autocomplete="off" placeholder="请输入家名称" class="layui-input">
                     </div>
                 </div>
-                
+
                 <div class="layui-form-item">
                     <label class="layui-form-label">联系人</label>
                     <div class="layui-input-block">
@@ -35,7 +35,7 @@
                         <input type="text"  name="phoneNum" required lay-verify="required" autocomplete="off" placeholder="请输入手机号" class="layui-input">
                     </div>
                 </div>
-             
+
                 <div class="layui-form-item">
                     <label class="layui-form-label">状态</label>
                     <div class="layui-input-block">
@@ -89,7 +89,7 @@
             $.ajax({
                 url:'https://localhost:7283/v1/api/Manufacturer/' + context.get("manufacturerId")
                    /// + '?departmentId=' + data.field.departmentId
-                    + '&status=' + data.field.status
+                    + '?status=' + data.field.status
                     + '&manufacturerName=' + data.field.manufacturerName
                     + '&contactperson=' + data.field.contactperson
                     + '&phoneNum=' + data.field.phoneNum,
@@ -101,10 +101,10 @@
                     if(result.success){
                         layer.msg(result.message,{icon:1,time:1000},function(){
                             parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
-                            parent.layui.table.reload("user-table");
+                            parent.layui.table.reload("base-table");
                         });
                     }else{
-                        layer.msg(result.msg,{icon:2,time:1000});
+                        layer.msg(result.message,{icon:2,time:1000});
                     }
                 }
             })
