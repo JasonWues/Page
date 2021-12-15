@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../Pear-Admin-Layui-3.9.2/component/pear/css/pear.css" />
+</head>
+<body>
+<form class="layui-form" action="" lay-filter="Update">
+    <div class="mainBox">
+        <div class="main-container">
+            <div class="main-container">
+                <div class="layui-form-item" hidden>
+                    <label class="layui-form-label required">ID</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="id" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">病房标题</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="wardTitle" required lay-verify="required" autocomplete="off" placeholder="请输入病房标题" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">病房床位</label>
+                    <div class="layui-input-block">
+                        <input type="text"  name="num" required lay-verify="required" autocomplete="off" placeholder="请输入病房床位" class="layui-input">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">病房类别</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="0" title="普通病房" checked>
+                        <input type="radio" name="type" value="1" title="重症病房">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label">病房状态</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="status" value="0" title="满员" checked>
+                        <input type="radio" name="status" value="1" title="有空床">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="button-container">
+            <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit="" lay-filter="user-save">
+                <i class="layui-icon layui-icon-ok"></i>
+                提交
+            </button>
+            <button type="reset" class="pear-btn pear-btn-sm">
+                <i class="layui-icon layui-icon-refresh"></i>
+                重置
+            </button>
+        </div>
+    </div>
+</form>
+<script src="../Pear-Admin-Layui-3.9.2/component/layui/layui.js"></script>
+<script src="../Pear-Admin-Layui-3.9.2/component/pear/pear.js"></script>
+<script>
+    layui.use(['form','jquery','context'],function(){
+        let form = layui.form;
+        const context = layui.context;
+        let $ = layui.jquery;
+
+        $.ajax({
+            url: 'https://localhost:7283/v1/api/Ward/' + context.get("WardId"),
+            type: 'get',
+            success:function (result){
+                if (result.success){
+                    form.val("Update",{
+                        "id":result.data.id,
+                        "wardTitle":result.data.wardTitle,
+                        "num":result.data.num,
+                        "type":result.data.type,
+                        "status":result.data.status
+                    });
+                }
+            }
+        })
+
+        form.on('submit(user-save)', function(data){
+            $.ajax({
+                url:'https://localhost:7283/v1/api/Ward/' + context.get("WardId")
+                    + '?wardTitle=' + data.field.wardTitle
+                    + '&num=' + data.field.num
+                    + '&type=' + data.field.type
+                    + '&status=' + data.field.status,
+                contentType: "application/x-www-form-urlencoded",
+                dataType:'json',
+                type:'patch',
+                success:function(result){
+                    if(result.success){
+                        layer.msg(result.message,{icon:1,time:1000},function(){
+                            parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                            parent.layui.table.reload("user-table");
+                        });
+                    }else{
+                        layer.msg(result.msg,{icon:2,time:1000});
+                    }
+                }
+            })
+            return false;
+        });
+    })
+</script>
+<script>
+</script>
+</body>
+</html>

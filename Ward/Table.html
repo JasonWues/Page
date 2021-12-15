@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>医生管理</title>
+    <link rel="stylesheet" href="../Pear-Admin-Layui-3.9.2/component/pear/css/pear.css" />
+</head>
+<body class="pear-container">
+<div class="layui-card">
+    <div class="layui-card-body">
+        <form class="layui-form" action="">
+            <div class="layui-form-item">
+                <div class="layui-form-item layui-inline">
+                    <label class="layui-form-label">病房标题</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="wardTitle" value="" placeholder="" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-inline">
+                    <label class="layui-form-label">病房类别</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="type" value="0" title="普通病房" checked>
+                        <input type="radio" name="type" value="1" title="重症病房">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-inline">
+                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="query">
+                        <i class="layui-icon layui-icon-search"></i>
+                        查询
+                    </button>
+                    <button type="reset" class="pear-btn pear-btn-md">
+                        <i class="layui-icon layui-icon-refresh"></i>
+                        重置
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="layui-card">
+    <div class="layui-card-body">
+        <table id="ward-table" lay-filter="ward-table"></table>
+    </div>
+</div>
+
+<script type="text/html" id="toolbar">
+    <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
+        <i class="layui-icon layui-icon-add-1"></i>
+        新增
+    </button>
+    <button class="pear-btn pear-btn-danger pear-btn-md" lay-event="batchRemove">
+        <i class="layui-icon layui-icon-delete"></i>
+        删除
+    </button>
+</script>
+
+<script type="text/html" id="leftbar">
+    <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit">修改<i class="layui-icon layui-icon-edit"></i></button>
+    <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove">删除<i class="layui-icon layui-icon-delete"></i></button>
+</script>
+
+<script src="../Pear-Admin-Layui-3.9.2/component/layui/layui.js"></script>
+<script src="../Pear-Admin-Layui-3.9.2/component/pear/pear.js"></script>
+<script>
+    layui.use(['table', 'form', 'jquery','common','context'], function() {
+        let table = layui.table;
+        let form = layui.form;
+        let $ = layui.jquery;
+        let common = layui.common;
+        const context = layui.context;
+
+
+        let MODULE_PATH = "operate/";
+
+        let cols = [
+            [{
+                type: 'checkbox'
+            },
+                {
+                    title: 'id',
+                    field: 'id',
+                    align: 'center',
+                    hide: true
+                },
+                {
+                    title: '病房标题',
+                    field: 'wardTitle',
+                    align: 'center',
+                },
+                {
+                    title: '病房类别',
+                    field: 'type',
+                    align: 'center',
+                },
+                {
+                    title: '病房床位',
+                    field: 'num',
+                    align: 'center'
+                },
+                {
+                    title: '病房状态',
+                    field: 'status',
+                    align: 'center',
+                },
+                { title: "操作",
+                    minWidth: 100,
+                    templet: "#leftbar",
+                    align: "center"
+                }
+            ]
+        ]
+
+        table.render({
+            elem: '#ward-table',
+            url: 'https://localhost:7283/v1/api/Ward',
+            response: {
+                statusCode: 200, //规定成功的状态码，默认：0
+                msgName: 'message'
+            },
+            page: true,
+            cols: cols,
+            skin: 'line',
+            toolbar: '#toolbar',
+            defaultToolbar: [{
+                title: '刷新',
+                layEvent: 'refresh',
+                icon: 'layui-icon-refresh',
+            }, 'filter', 'print', 'exports']
+        });
+
+        table.on('tool(ward-table)', function(obj) {
+            if (obj.event === 'remove') {
+                window.remove(obj);
+            } else if (obj.event === 'edit') {
+                window.edit(obj);
+            }
+        });
+
+        table.on('toolbar(ward-table)', function(obj) {
+            if (obj.event === 'add') {
+                window.add();
+            } else if (obj.event === 'refresh') {
+                window.refresh();
+            } else if (obj.event === 'batchRemove') {
+                window.batchRemove(obj);
+            }
+        });
+
+        form.on('submit(query)', function(data) {
+            table.reload('ward-table', {
+                where: {
+                    wardTitle:data.field.wardTitle,
+                    type:data.field.type
+                }
+            })
+            return false;
+        });
+
+
+        window.add = function() {
+            layer.open({
+                type: 2,
+                title: '新增',
+                shade: 0.1,
+                area: [common.isModile()?'100%':'500px', common.isModile()?'100%':'400px'],
+                content: 'add.html'
+            });
+        }
+
+        window.edit = function(obj) {
+            layer.open({
+                type: 2,
+                title: '修改',
+                shade: 0.1,
+                area: ['500px', '400px'],
+                content: 'edit.html'
+            });
+            context.put("WardId",obj.data['id'])
+        }
+
+        window.remove = function(obj) {
+            layer.confirm('确定要删除该用户', {
+                icon: 3,
+                title: '提示'
+            }, function(index) {
+                layer.close(index);
+                let loading = layer.load();
+                $.ajax({
+                    url: 'https://localhost:7283/v1/api/Ward/' + obj.data['id'],
+                    dataType: 'json',
+                    type: 'delete',
+                    success: function(result) {
+                        layer.close(loading);
+                        if (result.success) {
+                            layer.msg(result.message, {
+                                icon: 1,
+                                time: 1000
+                            }, function() {
+                                obj.del();
+                            });
+                        } else {
+                            layer.msg(result.message, {
+                                icon: 2,
+                                time: 1000
+                            });
+                        }
+                    }
+                })
+            });
+        }
+
+        window.batchRemove = function(obj) {
+
+            var checkIds = common.checkField(obj,'id');
+
+            if (checkIds === "") {
+                layer.msg("未选中数据", {
+                    icon: 3,
+                    time: 1000
+                });
+                return false;
+            }
+
+            layer.confirm('确定要删除这些病房', {
+                icon: 3,
+                title: '提示'
+            }, function(index) {
+                layer.close(index);
+                let loading = layer.load();
+                $.ajax({
+                    url: MODULE_PATH + "batchRemove/" + ids,
+                    dataType: 'json',
+                    type: 'delete',
+                    success: function(result) {
+                        layer.close(loading);
+                        if (result.success) {
+                            layer.msg(result.message, {
+                                icon: 1,
+                                time: 1000
+                            }, function() {
+                                table.reload('ward-table');
+                            });
+                        } else {
+                            layer.msg(result.message, {
+                                icon: 2,
+                                time: 1000
+                            });
+                        }
+                    }
+                })
+            });
+        }
+
+        window.refresh = function(param) {
+            table.reload('doctor-table');
+        }
+    })
+</script>
+</body>
+</html>
