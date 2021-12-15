@@ -4,8 +4,8 @@
 		"image": "../Pear-Admin-Layui-3.9.2/admin/images/logo.png"
 	},
 	"menu": {
-		"data": "admin/data/menu.json",
-		"collaspe": true,
+		"data": "https://localhost:7283/v1/api/Menu/Json",
+		"collaspe": false,
 		"accordion": true,
 		"method": "GET",
 		"control": false,
@@ -18,7 +18,7 @@
 		"tabMax": 30,
 		"index": {
 			"id": "0",
-			"href": "view/console/console1.html",
+			"href": "../Pear-Admin-Layui-3.9.2/view/console/console1.html",
 			"title": "首页"
 		}
 	},
