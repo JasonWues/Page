@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../Pear-Admin-Layui-3.9.2/component/pear/css/pear.css" />
+    <link rel="stylesheet" href="../Pear-Admin-Layui-3.9.2/component/pear/css/pear.css"/>
 </head>
 <body>
 <form class="layui-form" action="">
@@ -14,7 +14,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">姓名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="doctorName" required lay-verify="required" autocomplete="off" placeholder="请输入姓名" class="layui-input">
+                        <input type="text" name="doctorName" required lay-verify="required" autocomplete="off"
+                               placeholder="请输入姓名" class="layui-input">
                     </div>
                 </div>
 
@@ -24,52 +25,56 @@
                         <select id="departmentSelect" name="departmentId" lay-filter="departmentId">
                             <option></option>
                         </select>
-                </div>
+                    </div>
 
-                <div class="layui-form-item">
-                    <label class="layui-form-label">年龄</label>
-                    <div class="layui-input-block">
-                        <input type="text"  name="age" required lay-verify="required" autocomplete="off" placeholder="请输入年龄" class="layui-input">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">年龄</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="age" required lay-verify="required" autocomplete="off"
+                                   placeholder="请输入年龄" class="layui-input">
+                        </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">电话</label>
-                    <div class="layui-input-block">
-                        <input type="text"  name="phoneNum" required lay-verify="required" autocomplete="off" placeholder="请输入手机号" class="layui-input">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">电话</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="phoneNum" required lay-verify="required" autocomplete="off"
+                                   placeholder="请输入手机号" class="layui-input">
+                        </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">密码</label>
-                    <div class="layui-input-block">
-                        <input type="password" name="password" required lay-verify="required" autocomplete="off" placeholder="请输入密码" class="layui-input">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密码</label>
+                        <div class="layui-input-block">
+                            <input type="password" name="password" required lay-verify="required" autocomplete="off"
+                                   placeholder="请输入密码" class="layui-input">
+                        </div>
                     </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">挂号金额</label>
-                    <div class="layui-input-block">
-                        <input type="text"  name="registeredPrice" required lay-verify="required" autocomplete="off" placeholder="请输入挂号金额" class="layui-input">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">挂号金额</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="registeredPrice" required lay-verify="required" autocomplete="off"
+                                   placeholder="请输入挂号金额" class="layui-input">
+                        </div>
                     </div>
-                </div>
 
-                <div class="layui-form-item">
-                    <label class="layui-form-label">状态</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="status" value="0" title="正常" checked>
-                        <input type="radio" name="status" value="1" title="休假">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">状态</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="status" value="0" title="正常" checked>
+                            <input type="radio" name="status" value="1" title="休假">
+                        </div>
                     </div>
-                </div>
 
-                <div class="layui-form-item">
-                    <label class="layui-form-label">性别</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="sex" value="0" title="男">
-                        <input type="radio" name="sex" value="1" title="女" checked>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">性别</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="sex" value="0" title="男">
+                            <input type="radio" name="sex" value="1" title="女" checked>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <div class="bottom">
         <div class="button-container">
@@ -87,25 +92,25 @@
 <script src="../Pear-Admin-Layui-3.9.2/component/layui/layui.js"></script>
 <script src="../Pear-Admin-Layui-3.9.2/component/pear/pear.js"></script>
 <script>
-    layui.use(['form','jquery'],function(){
+    layui.use(['form', 'jquery'], function () {
         let form = layui.form;
         let $ = layui.jquery;
 
-        form.on('submit(save)', function(data){
+        form.on('submit(save)', function (data) {
             $.ajax({
-                url:'https://localhost:7283/v1/api/Doctor',
-                data:JSON.stringify(data.field),
-                dataType:'json',
-                contentType:'application/json',
-                type:'post',
-                success:function(result){
-                    if(result.success){
-                        layer.msg(result.msg,{icon:1,time:1000},function(){
+                url: 'https://localhost:7283/v1/api/Doctor',
+                data: JSON.stringify(data.field),
+                dataType: 'json',
+                contentType: 'application/json',
+                type: 'post',
+                success: function (result) {
+                    if (result.success) {
+                        layer.msg(result.msg, {icon: 1, time: 1000}, function () {
                             parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
                             parent.layui.table.reload("doctor-table");
                         });
-                    }else{
-                        layer.msg(result.msg,{icon:2,time:1000});
+                    } else {
+                        layer.msg(result.msg, {icon: 2, time: 1000});
                     }
                 }
             })

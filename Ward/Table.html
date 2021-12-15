@@ -39,7 +39,7 @@
 </div>
 <div class="layui-card">
     <div class="layui-card-body">
-        <table id="ward-table" lay-filter="ward-table"></table>
+        <table id="base-table" lay-filter="base-table"></table>
     </div>
 </div>
 
@@ -111,7 +111,7 @@
         ]
 
         table.render({
-            elem: '#ward-table',
+            elem: '#base-table',
             url: 'https://localhost:7283/v1/api/Ward',
             response: {
                 statusCode: 200, //规定成功的状态码，默认：0
@@ -128,7 +128,7 @@
             }, 'filter', 'print', 'exports']
         });
 
-        table.on('tool(ward-table)', function(obj) {
+        table.on('tool(base-table)', function(obj) {
             if (obj.event === 'remove') {
                 window.remove(obj);
             } else if (obj.event === 'edit') {
@@ -136,7 +136,7 @@
             }
         });
 
-        table.on('toolbar(ward-table)', function(obj) {
+        table.on('toolbar(base-table)', function(obj) {
             if (obj.event === 'add') {
                 window.add();
             } else if (obj.event === 'refresh') {
@@ -147,7 +147,7 @@
         });
 
         form.on('submit(query)', function(data) {
-            table.reload('ward-table', {
+            table.reload('base-table', {
                 where: {
                     wardTitle:data.field.wardTitle,
                     type:data.field.type
@@ -238,7 +238,7 @@
                                 icon: 1,
                                 time: 1000
                             }, function() {
-                                table.reload('ward-table');
+                                table.reload('base-table');
                             });
                         } else {
                             layer.msg(result.message, {
@@ -252,7 +252,7 @@
         }
 
         window.refresh = function(param) {
-            table.reload('doctor-table');
+            table.reload('base-table');
         }
     })
 </script>

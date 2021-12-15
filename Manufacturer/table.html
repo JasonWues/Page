@@ -3,31 +3,31 @@
 <head>
     <meta charset="utf-8">
     <title>医生管理</title>
-    <link rel="stylesheet" href="../Pear-Admin-Layui-3.9.2/component/pear/css/pear.css" />
+    <link href="../Pear-Admin-Layui-3.9.2/component/pear/css/pear.css" rel="stylesheet" />
 </head>
 <body class="pear-container">
 <div class="layui-card">
     <div class="layui-card-body">
-        <form class="layui-form" action="">
+        <form action="" class="layui-form">
             <div class="layui-form-item">
                 <div class="layui-form-item layui-inline">
                     <label class="layui-form-label">厂家名称</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="manufacturerName" value="" placeholder="" class="layui-input">
+                        <input class="layui-input" name="manufacturerName" placeholder="" type="text" value="">
                     </div>
                 </div>
                 <div class="layui-form-item layui-inline">
                     <label class="layui-form-label">联系人</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="contactperson" value="" placeholder="" class="layui-input">
+                        <input class="layui-input" name="contactperson" placeholder="" type="text" value="">
                     </div>
                 </div>
                 <div class="layui-form-item layui-inline">
-                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="query">
+                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-filter="query" lay-submit>
                         <i class="layui-icon layui-icon-search"></i>
                         查询
                     </button>
-                    <button type="reset" class="pear-btn pear-btn-md">
+                    <button class="pear-btn pear-btn-md" type="reset">
                         <i class="layui-icon layui-icon-refresh"></i>
                         重置
                     </button>
@@ -38,11 +38,11 @@
 </div>
 <div class="layui-card">
     <div class="layui-card-body">
-        <table id="doctor-table" lay-filter="doctor-table"></table>
+        <table id="base-table" lay-filter="base-table"></table>
     </div>
 </div>
 
-<script type="text/html" id="toolbar">
+<script id="toolbar" type="text/html">
     <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
         <i class="layui-icon layui-icon-add-1"></i>
         新增
@@ -53,7 +53,7 @@
     </button>
 </script>
 
-<script type="text/html" id="leftbar">
+<script id="leftbar" type="text/html">
     <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit">修改<i class="layui-icon layui-icon-edit"></i></button>
     <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove">删除<i class="layui-icon layui-icon-delete"></i></button>
 </script>
@@ -110,7 +110,7 @@
         ]
 
         table.render({
-            elem: '#doctor-table',
+            elem: '#base-table',
             url: 'https://localhost:7283/v1/api/Manufacturer',
             response: {
                 statusCode: 200, //规定成功的状态码，默认：0
@@ -127,7 +127,7 @@
             }, 'filter', 'print', 'exports']
         });
         ///--------------删除---------------
-        table.on('tool(doctor-table)', function(obj) {
+        table.on('tool(base-table)', function(obj) {
             if (obj.event === 'remove') {
                 window.remove(obj);
             } else if (obj.event === 'edit') {
@@ -135,7 +135,7 @@
             }
         });
         ///--------------添加---------------
-        table.on('toolbar(doctor-table)', function(obj) {
+        table.on('toolbar(base-table)', function(obj) {
             if (obj.event === 'add') {
                 window.add();
             } else if (obj.event === 'refresh') {
@@ -146,7 +146,7 @@
         });
          ///--------------查询---------------
         form.on('submit(query)', function(data) {
-            table.reload('doctor-table', {
+            table.reload('base-table', {
                 where: {
                     manufacturerName:data.field.manufacturerName,
                     contactperson:data.field.contactperson
@@ -237,7 +237,7 @@
                                 icon: 1,
                                 time: 1000
                             }, function() {
-                                table.reload('doctor-table');
+                                table.reload('base-table');
                             });
                         } else {
                             layer.msg(result.message, {
@@ -251,7 +251,7 @@
         }
 
         window.refresh = function(param) {
-            table.reload('doctor-table');
+            table.reload('base-table');
         }
     })
 </script>
