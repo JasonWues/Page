@@ -1,7 +1,7 @@
 {
 	"logo": {
-		"title": "Pear Admin",
-		"image": "admin/images/logo.png"
+		"title": "Medical System",
+		"image": "../Pear-Admin-Layui-3.9.2/admin/images/logo.png"
 	},
 	"menu": {
 		"data": "admin/data/menu.json",
@@ -9,7 +9,8 @@
 		"accordion": true,
 		"method": "GET",
 		"control": false,
-		"select": "0"
+		"select": "0",
+		"async": true
 	},
 	"tab": {
 		"muiltTab": true,
@@ -62,6 +63,6 @@
 		"autoHead": false
 	},
 	"header": {
-		"message": "admin/data/message.json"
+		"message": false
 	}
 }
