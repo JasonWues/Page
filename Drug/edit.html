@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>更改药品</title>
+    <link rel="stylesheet" href="../Pear-Admin-Layui-3.9.2/component/pear/css/pear.css" />
+</head>
+
+<body>
+    <form class="layui-form" action="" lay-filter="Update">
+        <div class="mainBox">
+            <div class="main-container">
+                <div class="main-container">
+                    <div class="layui-form-item" hidden>
+                        <label class="layui-form-label required">ID</label>
+                        <div class="layui-input-block">
+                            <input type="hidden" name="id" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">药品名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="drugTitle" required lay-verify="required" autocomplete="off"
+                                placeholder="请输入药品名称" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">单位</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="unit" required lay-verify="required" autocomplete="off"
+                                placeholder="请输入药品单位" class="layui-input">
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">类别</label>
+                            <div class="layui-input-block">
+                                <!-- 处方药、非处方药 -->
+                                <select name="type" id="typeSelect">
+                                    <option value=""></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">生产厂家</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="manufacturerName" required lay-verify="required"
+                                    autocomplete="off" placeholder="请输入生产厂家" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">价格</label>
+                            <div class="layui-input-block">
+                                <input type="password" name="price" required lay-verify="required" autocomplete="off"
+                                    placeholder="请输入价格" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">库存</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="stock" required lay-verify="required" autocomplete="off"
+                                    placeholder="请输入库存" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">警戒数字</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="warningcount" required lay-verify="required" autocomplete="off"
+                                    placeholder="请输入警戒数字" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom">
+                <div class="button-container">
+                    <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit=""
+                        lay-filter="user-save">
+                        <i class="layui-icon layui-icon-ok"></i>
+                        提交
+                    </button>
+                    <button type="reset" class="pear-btn pear-btn-sm">
+                        <i class="layui-icon layui-icon-refresh"></i>
+                        重置
+                    </button>
+                </div>
+            </div>
+    </form>
+    <script src="../Pear-Admin-Layui-3.9.2/component/layui/layui.js"></script>
+    <script src="../Pear-Admin-Layui-3.9.2/component/pear/pear.js"></script>
+    <script>
+        layui.use(['form', 'jquery', 'context'], function () {
+            let form = layui.form;
+            const context = layui.context;
+            let $ = layui.jquery;
+
+            $.ajax({
+                url: 'https://localhost:7283/v1/api/Drug/' + context.get("DrugId"),
+                type: 'get',
+                success: function (result) {
+                    if (result.success) {
+                        form.val("Update", {
+                            "id": result.data.id,
+                            "drugTitle": result.data.drugTitle,
+                            "unit": result.data.unit,
+                            "type": result.data.type,
+                            "manufacturerName": result.data.manufacturerName,
+                            "price": result.data.price,
+                            "stock": result.data.stock,
+                            "warningcount": result.data.warningcount
+                        });
+                    }
+                }
+            })
+
+            form.on('submit(user-save)', function (data) {
+                $.ajax({
+                    url: 'https://localhost:7283/v1/api/Drug/' + context.get("DrugId")
+                        + '&drugTitle=' + data.field.drugTitle
+                        + '&unit=' + data.field.unit
+                        + '&type=' + data.field.type
+                        + '&manufacturerName=' + data.field.manufacturerName
+                        + '&price=' + data.field.price
+                        + '&stock=' + data.field.stock
+                        + '&warningcount=' + data.field.warningcount,
+                    contentType: "application/x-www-form-urlencoded",
+                    dataType: 'json',
+                    type: 'patch',
+                    success: function (result) {
+                        if (result.success) {
+                            layer.msg(result.message, { icon: 1, time: 1000 }, function () {
+                                parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                                parent.layui.table.reload("base-table");
+                            });
+                        } else {
+                            layer.msg(result.message, { icon: 2, time: 1000 });
+                        }
+                    }
+                })
+                return false;
+            });
+        })
+    </script>
+    <script>
+    </script>
+</body>
+
+</html>
