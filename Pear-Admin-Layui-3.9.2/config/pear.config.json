@@ -4,9 +4,9 @@
 		"image": "../Pear-Admin-Layui-3.9.2/admin/images/logo.png"
 	},
 	"menu": {
-		"data": "https://localhost:7283/v1/api/Menu/Json",
+		"data": "https://localhost:7283/v1/api/Menu/MenuJson",
 		"collaspe": false,
-		"accordion": true,
+		"accordion": true,	
 		"method": "GET",
 		"control": false,
 		"select": "0",

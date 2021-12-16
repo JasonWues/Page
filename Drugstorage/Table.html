@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>医生管理</title>
+    <title>药品库存管理</title>
     <link rel="stylesheet" href="../Pear-Admin-Layui-3.9.2/component/pear/css/pear.css"/>
 </head>
 <body class="pear-container">
@@ -191,7 +191,7 @@
                 layer.close(index);
                 let loading = layer.load();
                 $.ajax({
-                    url: 'https://localhost:7283/v1/api/drugstorage/' + obj.data['id'],
+                    url: 'https://localhost:7283/v1/api/Drugstorage/' + obj.data['id'],
                     dataType: 'json',
                     type: 'delete',
                     success: function (result) {
