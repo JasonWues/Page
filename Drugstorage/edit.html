@@ -19,7 +19,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">入库人Id</label>
                     <div class="layui-input-block">
-                        <select id="departmentSelect" name="operatorId" lay-filter="operatorId">
+                        <select id="operatorSelect" lay-filter="operatorId" name="operatorId">
                             <option></option>
                         </select>
                     </div>
@@ -27,7 +27,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">厂家Id</label>
                     <div class="layui-input-block">
-                        <select id="departmentSelect" name="manufacturerId" lay-filter="manufacturerId">
+                        <select id="manufacturerSelect" lay-filter="manufacturerId" name="manufacturerId">
                             <option></option>
                         </select>
                     </div>
@@ -35,7 +35,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">药品Id</label>
                     <div class="layui-input-block">
-                        <select id="departmentSelect" name="drugId" lay-filter="drugId">
+                        <select id="drugSelect" lay-filter="drugId" name="drugId">
                             <option></option>
                         </select>
                     </div>
@@ -97,7 +97,7 @@
         form.on('submit(user-save)', function (data) {
             $.ajax({
                 url: 'https://localhost:7283/v1/api/Drugstorage/' + context.get("DrugstorageId")
-                    + '?ManufacturerId=' + data.field.ManufacturerId
+                    + '?ManufacturerId=' + data.field.manufacturerId
                     + '&drugId=' + data.field.drugId
                     + '&count=' + data.field.count
                     + '&applicantId=' + data.field.applicantId,

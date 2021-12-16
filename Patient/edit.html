@@ -19,7 +19,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">病房名称</label>
                     <div class="layui-input-block">
-                        <select id="departmentSelect" name="WardId" lay-filter="WardId">
+                        <select id="wardSelect" lay-filter="WardId" name="wardId">
                             <option></option>
                         </select>
                     </div>
@@ -27,7 +27,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">患者名称</label>
                     <div class="layui-input-block">
-                        <select id="departmentSelect" name="patientName" lay-filter="patientName">
+                        <select id="patientSelect" lay-filter="patientName" name="patientName">
                             <option></option>
                         </select>
                     </div>
@@ -89,7 +89,7 @@
         form.on('submit(user-save)', function(data){
             $.ajax({
                 url:'https://localhost:7283/v1/api/Doctor/' + context.get("patientId")
-                    + '?WardId=' + data.field.WardId
+                    + '?WardId=' + data.field.wardId
                     + '&status=' + data.field.status
                     + '&patientName=' + data.field.patientName
                     + '&phoneNum=' + data.field.phoneNum,
