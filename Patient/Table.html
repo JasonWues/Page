@@ -88,7 +88,7 @@
                 },
                 {
                     title: '患者姓名',
-                    field: 'doctorName',
+                    field: 'patientName',
                     align: 'center',
                 },
                 {
@@ -163,7 +163,7 @@
         form.on('submit(query)', function(data) {
             table.reload('base-table', {
                 where: {
-                    doctorName:data.field.doctorName,
+                    patientName:data.field.patientName,
                     phoneNum:data.field.phoneNum
                 }
             })
@@ -189,7 +189,7 @@
                 area: ['500px', '400px'],
                 content: 'edit.html'
             });
-            context.put("DoctorId",obj.data['id'])
+            context.put("PatientId",obj.data['id'])
         }
 
         window.remove = function(obj) {
@@ -200,7 +200,7 @@
                 layer.close(index);
                 let loading = layer.load();
                 $.ajax({
-                    url: 'https://localhost:7283/v1/api/Doctor/' + obj.data['id'],
+                    url: 'https://localhost:7283/v1/api/Patient/' + obj.data['id'],
                     dataType: 'json',
                     type: 'delete',
                     success: function(result) {
@@ -235,7 +235,7 @@
                 return false;
             }
 
-            layer.confirm('确定要删除这些用户', {
+            layer.confirm('确定要删除这些患者信息？', {
                 icon: 3,
                 title: '提示'
             }, function(index) {

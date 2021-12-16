@@ -185,7 +185,7 @@
                 layer.close(index);
                 let loading = layer.load();
                 $.ajax({
-                    url: 'https://localhost:7283/v1/api/Manufacturer/' + obj.data['id'],
+                    url: 'https://localhost:7283/v1/api/Manufacturer' + obj.data['id'],
                     dataType: 'json',
                     type: 'delete',
                     success: function(result) {
@@ -220,7 +220,7 @@
                 return false;
             }
 
-            layer.confirm('确定要删除这些用户', {
+            layer.confirm('确定要删除这些制造商？', {
                 icon: 3,
                 title: '提示'
             }, function(index) {

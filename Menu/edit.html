@@ -94,24 +94,24 @@
     const context = layui.context;
     let $ = layui.jquery;
 
-    // $.ajax({
-    //   url: 'https://localhost:7283/v1/api/Menu/' + context.get("DrugId"),
-    //   type: 'get',
-    //   success: function (result) {
-    //     if (result.success) {
-    //       form.val("Update", {
-    //         "id": result.data.id,
-    //         "drugTitle": result.data.drugTitle,
-    //         "unit": result.data.unit,
-    //         "type": result.data.type,
-    //         "manufacturerName": result.data.manufacturerName,
-    //         "price": result.data.price,
-    //         "stock": result.data.stock,
-    //         "warningcount": result.data.warningcount
-    //       });
-    //     }
-    //   }
-    // })
+    $.ajax({
+      url: 'https://localhost:7283/v1/api/Menu/' + context.get("MenuId"),
+      type: 'get',
+      success: function (result) {
+        if (result.success) {
+          form.val("Update", {
+            "id": result.data.id,
+            "title": result.data.title,
+            "icon": result.data.icon,
+            "sort": result.data.sort,
+            "href": result.data.href,
+            "parentId": result.data.parentId,
+            "opentype": result.data.opentype,
+            "type": result.data.type
+          });
+        }
+      }
+    })
 
     form.on('submit(user-save)', function (data) {
       $.ajax({
