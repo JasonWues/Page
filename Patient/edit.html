@@ -89,7 +89,7 @@
         form.on('submit(user-save)', function(data){
             $.ajax({
                 url:'https://localhost:7283/v1/api/Doctor/' + context.get("patientId")
-                    + '?WardId=' + data.field.wardId
+                    + '?wardId=' + data.field.wardId
                     + '&status=' + data.field.status
                     + '&patientName=' + data.field.patientName
                     + '&phoneNum=' + data.field.phoneNum,
