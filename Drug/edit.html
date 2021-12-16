@@ -71,6 +71,7 @@
                     </div>
                 </div>
             </div>
+        </div>
             <div class="bottom">
                 <div class="button-container">
                     <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit=""
@@ -115,7 +116,7 @@
             form.on('submit(user-save)', function (data) {
                 $.ajax({
                     url: 'https://localhost:7283/v1/api/Drug/' + context.get("DrugId")
-                        + '&drugTitle=' + data.field.drugTitle
+                        + '?drugTitle=' + data.field.drugTitle
                         + '&unit=' + data.field.unit
                         + '&type=' + data.field.type
                         + '&manufacturerName=' + data.field.manufacturerName
