@@ -71,7 +71,7 @@
         let $ = layui.jquery;
 
         $.ajax({
-            url: 'https://localhost:7283/v1/api/Doctor/' + context.get("DoctorId"),
+            url: 'https://localhost:7283/v1/api/Patient/' + context.get("DoctorId"),
             type: 'get',
             success:function (result){
                 if (result.success){
@@ -88,7 +88,7 @@
 
         form.on('submit(user-save)', function(data){
             $.ajax({
-                url:'https://localhost:7283/v1/api/Doctor/' + context.get("patientId")
+                url:'https://localhost:7283/v1/api/Patient/' + context.get("patientId")
                     + '?wardId=' + data.field.wardId
                     + '&status=' + data.field.status
                     + '&patientName=' + data.field.patientName
