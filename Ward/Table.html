@@ -17,13 +17,6 @@
                     </div>
                 </div>
                 <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">病房类别</label>
-                    <div class="layui-input-block">
-                        <input type="radio" name="type" value="0" title="普通病房" checked>
-                        <input type="radio" name="type" value="1" title="重症病房">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-inline">
                     <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="query">
                         <i class="layui-icon layui-icon-search"></i>
                         查询
@@ -149,8 +142,7 @@
         form.on('submit(query)', function(data) {
             table.reload('base-table', {
                 where: {
-                    wardTitle:data.field.wardTitle,
-                    type:data.field.type
+                    wardTitle:data.field.wardTitle
                 }
             })
             return false;
