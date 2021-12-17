@@ -174,16 +174,23 @@
 
         window.upload = upload.render({
             elem: '#uploadBtn',
-            url:'https://localhost:7283/v1/api/Drugstorage/Upload',
+            url:'https://localhost:7283/v1/api/DrugStorage/Upload',
             accept:'file',
-            exts:'xlsx',
+            field:'excelFiles',
             done:function (result){
-                layer.msg(result.message,{
-                    icon:1,
-                    time:1000
-                },function (){
-                    table.reload('base-table')
-                });
+                if (result.success){
+                    layer.msg(result.message,{
+                        icon:1,
+                        time:1000
+                    },function (){
+                        table.reload('base-table')
+                    });
+                }else {
+                    layer.msg(result.message,{
+                        icon:2,
+                        time:1000
+                    })
+                }
             },
             error: function (result){
                 layer.msg(result.message,{
