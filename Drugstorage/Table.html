@@ -148,7 +148,7 @@
             } else if (obj.event === 'batchRemove') {
                 window.batchRemove(obj);
             }else if (obj.event === 'upload'){
-
+                window.upload();
             }
         });
 
@@ -175,6 +175,8 @@
         window.upload = upload.render({
             elem: '#uploadBtn',
             url:'https://localhost:7283/v1/api/Drugstorage/Upload',
+            accept:'file',
+            exts:'xlsx',
             done:function (result){
                 layer.msg(result.message,{
                     icon:1,
