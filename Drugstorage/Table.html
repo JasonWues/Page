@@ -154,7 +154,7 @@
         form.on('submit(query)', function (data) {
             table.reload('base-table', {
                 where: {
-                    applicantId: data.field.applicantId,
+                    operatorId: data.field.operatorId
                 }
             })
             return false;
