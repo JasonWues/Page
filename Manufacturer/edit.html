@@ -70,7 +70,7 @@
         let $ = layui.jquery;
 
         $.ajax({
-            url: 'https://localhost:7283/v1/api/Manufacturer/' + context.get("ManufacturerId"),
+            url: 'https://localhost:7283/v1/api/Manufacturer/' + context.get("manufacturerId"),
             type: 'get',
             success:function (result){
                 if (result.success){

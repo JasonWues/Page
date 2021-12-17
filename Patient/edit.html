@@ -19,23 +19,21 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">病房名称</label>
                     <div class="layui-input-block">
-                        <select id="wardSelect" lay-filter="WardId" name="wardId">
-                            <option></option>
-                        </select>
+                        <input type="text"  name="wardId" required lay-verify="required" autocomplete="off" placeholder="请输入病房名称"  class="layui-input">
                     </div>
                 </div>
+
+
                 <div class="layui-form-item">
                     <label class="layui-form-label">患者名称</label>
                     <div class="layui-input-block">
-                        <select id="patientSelect" lay-filter="patientName" name="patientName">
-                            <option></option>
-                        </select>
+                        <input type="text"  name="patientName" required lay-verify="required" autocomplete="off" placeholder="请输入患者名称" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">电话</label>
                     <div class="layui-input-block">
-                        <input type="text"  name="phoneNum" required lay-verify="required" autocomplete="off" placeholder="请输入手机号" class="layui-input">
+                        <input type="text"  name="phonenum" required lay-verify="required" autocomplete="off" placeholder="请输入手机号" class="layui-input">
                     </div>
                 </div>
 
@@ -71,15 +69,15 @@
         let $ = layui.jquery;
 
         $.ajax({
-            url: 'https://localhost:7283/v1/api/Patient/' + context.get("DoctorId"),
+            url: 'https://localhost:7283/v1/api/Patient/' + context.get("patientId"),
             type: 'get',
             success:function (result){
                 if (result.success){
                     form.val("Update",{
                         "id":result.data.id,
-                        "WardId":result.data.WardId,
+                        "wardId":result.data.wardId,
                         "patientName":result.data.patientName,
-                        "phoneNum":result.data.phoneNum,
+                        "phonenum":result.data.phonenum,
                         "status":result.data.status
                     });
                 }
@@ -92,7 +90,7 @@
                     + '?wardId=' + data.field.wardId
                     + '&status=' + data.field.status
                     + '&patientName=' + data.field.patientName
-                    + '&phoneNum=' + data.field.phoneNum,
+                    + '&phonenum=' + data.field.phonenum,
                 contentType: "application/x-www-form-urlencoded",
                 dataType:'json',
                 type:'patch',
@@ -103,7 +101,7 @@
                             parent.layui.table.reload("base-table");
                         });
                     }else{
-                        layer.msg(result.msg,{icon:2,time:1000});
+                        layer.msg(result.message,{icon:2,time:1000});
                     }
                 }
             })
