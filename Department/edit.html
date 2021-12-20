@@ -16,14 +16,14 @@
                         <input type="hidden" name="id" class="layui-input">
                     </div>
                 </div>
+
                 <div class="layui-form-item">
                     <label class="layui-form-label">科室名称</label>
                     <div class="layui-input-block">
-                        <select id="departmentName" name="departmentName" lay-filter="departmentName">
-                            <option></option>
-                        </select>
+                        <input autocomplete="off" class="layui-input" lay-verify="required" name="departmentName" placeholder="请输入科室名称" required type="text">
                     </div>
                 </div>
+
                 <div class="layui-form-item">
                     <label class="layui-form-label">主管姓名</label>
                     <div class="layui-input-block">
@@ -32,13 +32,6 @@
                         </select>
                     </div>
                 </div>
-                <!-- <div class="layui-form-item">
-                    <label class="layui-form-label">挂号金额</label>
-                    <div class="layui-input-block">
-                        <input type="text" name="registeredPrice" required lay-verify="required" autocomplete="off"
-                               placeholder="请输入挂号金额" class="layui-input">
-                    </div>
-                </div> -->
 
                 <div class="layui-form-item">
                     <label class="layui-form-label">科室状态</label>
@@ -79,9 +72,21 @@
                     form.val("Update", {
                         "id": result.data.id,
                         "departmentName": result.data.departmentName,
-                        "leaderID": result.data.leaderID,
                         "status": result.data.status
                     });
+                }
+            }
+        })
+
+        $.ajax({
+            url:'https://localhost:7283/v1/api/Department/doctorOption',
+            type:'get',
+            success: function (result){
+                if (result != null){
+                    for (let i =0;i<result.length;i++){
+                        $('#leaderSelect').append('<option value="'+result[i].id +'">' + result[i].doctorName + '</option>')
+                    }
+                    form.render('select');
                 }
             }
         })
