@@ -33,7 +33,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">电话</label>
                     <div class="layui-input-block">
-                        <input type="text"  name="phonenum" required lay-verify="required" autocomplete="off" placeholder="请输入手机号" class="layui-input">
+                        <input type="text"  name="phoneNum" required lay-verify="required" autocomplete="off" placeholder="请输入手机号" class="layui-input">
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@
                         "id":result.data.id,
                         "wardId":result.data.wardId,
                         "patientName":result.data.patientName,
-                        "phonenum":result.data.phonenum,
+                        "phoneNum":result.data.phoneNum,
                         "status":result.data.status
                     });
                 }
@@ -90,7 +90,7 @@
                     + '?wardId=' + data.field.wardId
                     + '&status=' + data.field.status
                     + '&patientName=' + data.field.patientName
-                    + '&phonenum=' + data.field.phonenum,
+                    + '&phoneNum=' + data.field.phoneNum,
                 contentType: "application/x-www-form-urlencoded",
                 dataType:'json',
                 type:'patch',
