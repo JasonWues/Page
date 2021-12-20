@@ -70,6 +70,7 @@
         const context = layui.context;
         let $ = layui.jquery;
 
+        //请求当前修改的数据
         $.ajax({
             url: 'https://localhost:7283/v1/api/Doctor/' + context.get("DoctorId"),
             type: 'get',
@@ -84,6 +85,20 @@
                 }
             }
         })
+
+        //请求部门下拉选数据
+        $.ajax({
+            url: 'https://localhost:7283/v1/api/Doctor/departmentOption',
+            type:'get',
+            success: function (result){
+                if (result != null){
+                    for (let i =0;i<result.length;i++){
+                        $('#departmentSelect').append('<option value="'+result[i].id +'">' + result[i].departmentName + '</option>')
+                    }
+                    form.render('select');
+                }
+            }
+        });
 
         form.on('submit(user-save)', function (data) {
             $.ajax({
