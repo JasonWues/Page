@@ -83,6 +83,22 @@
         let form = layui.form;
         let $ = layui.jquery;
 
+        $.ajax({
+            url:'https://localhost:7283/v1/api/Patient/wardInfoOption',
+            type:'get',
+            success:function(result)
+            {
+                if(result!=null)
+                {
+                    for(let i=0;i<result.length;i++)
+                    {
+                        $("#WardSelect").append('<option value="'+result[i].id +'">' + result[i].wardTitle + '</option>')
+                    }
+                    form.render('select');
+                }
+            }
+        })
+
         form.on('submit(save)', function(data){
             $.ajax({
                 url:'https://localhost:7283/v1/api/Patient',
