@@ -27,7 +27,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">主管姓名</label>
                     <div class="layui-input-block">
-                        <select name="leaderID" id="leaderSelect">
+                        <select id="leaderSelect" name="leaderId">
                             <option value=""></option>
                         </select>
                     </div>
@@ -72,6 +72,7 @@
                     form.val("Update", {
                         "id": result.data.id,
                         "departmentName": result.data.departmentName,
+                        "leaderId":result.data.leaderId,
                         "status": result.data.status
                     });
                 }
