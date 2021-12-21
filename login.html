@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Login Page</title>
+		<!-- 样 式 文 件 -->
+		<link rel="stylesheet" href="Pear-Admin-Layui-3.9.2/component/pear/css/pear.css" />
+		<link rel="stylesheet" href="Pear-Admin-Layui-3.9.2/admin/css/other/login.css" />
+	</head>
+    <!-- 代 码 结 构 -->
+	<body background="Pear-Admin-Layui-3.9.2/admin/images/background.svg" style="background-size: cover;">
+		<form class="layui-form" action="javascript:void(0);">
+			<div class="layui-form-item">
+				<img class="logo" src="Pear-Admin-Layui-3.9.2/admin/images/logo.png" />
+				<div class="title">General Medical</div>
+				<div class="desc">
+					通用医疗系统后台
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<input type="text" placeholder="手机号 :  " name="phoneNum" lay-verify="required" hover class="layui-input"  />
+			</div>
+			<div class="layui-form-item">
+				<input type="password" placeholder="密码 :  " name="password" lay-verify="required" hover class="layui-input"  />
+			</div>
+			<div class="layui-form-item">
+				<input type="checkbox" name="" title="记住密码" lay-skin="primary" checked>
+			</div>
+			<div class="layui-form-item">
+				<button type="button" class="pear-btn pear-btn-success login" lay-submit lay-filter="login">
+					登 入
+				</button>
+			</div>
+		</form>
+		<!-- 资 源 引 入 -->
+		<script src="Pear-Admin-Layui-3.9.2/component/layui/layui.js"></script>
+		<script src="Pear-Admin-Layui-3.9.2/component/pear/pear.js"></script>
+		<script>
+			layui.use(['form', 'button', 'popup','jquery'], function() {
+				let form = layui.form;
+				let button = layui.button;
+				let popup = layui.popup;
+				let $ = layui.jquery;
+
+                // 登 录 提 交
+				form.on('submit(login)', function(data) {
+					$.ajax({
+						url:'https://localhost:7283/v1/api/Login',
+						type:'post',
+						data:data.field,
+						success: function (result){
+							if (result.success){
+								button.load({
+									elem: '.login',
+									time: 1500,
+									done: function() {
+										popup.success("登录成功", function() {
+											location.href = "./Home/Index.html"
+										});
+									}
+								});
+							}else{
+								layer.msg(result.message,{icon:2,time:1000});
+							}
+						}
+					});
+					return false;
+				});
+			})
+		</script>
+	</body>
+</html>
