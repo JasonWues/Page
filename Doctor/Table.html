@@ -138,6 +138,9 @@
                 statusCode: 200, //规定成功的状态码，默认：0
                 msgName: 'message'
             },
+            headers:{
+                authorization:'Bearer '+localStorage.getItem('token')
+            },
             page: true,
             cols: cols,
             skin: 'line',

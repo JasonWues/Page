@@ -50,6 +50,7 @@
 						data:data.field,
 						success: function (result){
 							if (result.success){
+								localStorage.setItem("token",result.message);
 								button.load({
 									elem: '.login',
 									time: 1500,
