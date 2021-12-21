@@ -131,6 +131,14 @@
             ]
         ]
 
+        $.ajaxSetup({
+            complete:function (xhr,status){
+                if (xhr.status == 401){
+                    layer.msg("登入信息已失效");
+                }
+            }
+        })
+
         table.render({
             elem: '#base-table',
             url: 'https://localhost:7283/v1/api/Doctor',
